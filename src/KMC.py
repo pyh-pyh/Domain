@@ -23,7 +23,7 @@ class KMC:
         get_defect_data('generate.txt')
 
     def simulation(self):
-        #TODO
+        #
         pass
 
 k = KMC()
