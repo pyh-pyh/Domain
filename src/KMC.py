@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import time
 import numba
 
@@ -31,7 +32,14 @@ class KMC:
 
     def generate_defect_data(self, N, defectype = ['I', 'V']):
         bound = self.get_bound()
-        with open('data/generate.txt', 'a') as f:
+        filename = 'generate N = ' + str(N) + ' box = ' + self.BOX_SHAPE + ' L = ' + str(self.CHARACTERISTIC_LENGTH)
+        datafiles = os.listdir('./data')
+        index = 0
+        indexedfilename = filename + '.txt'
+        while (indexedfilename in datafiles):
+            index += 1
+            indexedfilename = filename + ' (' + str(index) + ').txt'
+        with open('data/' + indexedfilename, 'a') as f:
             print(N, file = f)
             for i in range(N):
                 flag = np.random.randint(len(defectype))
@@ -39,7 +47,7 @@ class KMC:
                 y = np.random.random_sample()
                 z = np.random.random_sample()
                 print('%d %s %f %f %f'%(i+1, defectype[flag], x*bound[1], y*bound[3], z*bound[5]), file = f)
-        return self.read_defect_data('generate.txt')
+        return self.read_defect_data(indexedfilename)
 
     def simulation(self):
         #
@@ -47,7 +55,7 @@ class KMC:
 
 if __name__ == '__main__':
     simulator = KMC()
-    simulator.set_up_box('cube', 100)
-    defect = simulator.generate_defect_data(1000)
-    print(defect, type(defect), defect.shape())
+    simulator.set_up_box('cube', 10)
+    defect = simulator.generate_defect_data(100)
+    #print(defect, type(defect))
 
