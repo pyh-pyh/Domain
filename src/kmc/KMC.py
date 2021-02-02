@@ -1,7 +1,16 @@
 import numpy as np
 import os
+import sys
 import time
 import numba
+
+print(os.getcwd())
+sys.path.append(os.getcwd()+'\\src')
+print(sys.path)
+import test
+print(sys.path)
+import test.func
+
 
 class KMC:
     def __init__(self):
@@ -12,6 +21,7 @@ class KMC:
     CHARACTERISTIC_LENGTH = 0
 
     def set_up_box(self, shape:str, L:float):
+        ''''''
         self.BOX_SHAPE = shape
         self.CHARACTERISTIC_LENGTH = L
         
@@ -53,9 +63,10 @@ class KMC:
         #
         pass
 
-if __name__ == '__main__':
+'''if __name__ == '__main__':
     simulator = KMC()
-    simulator.set_up_box('cube', 10)
-    defect = simulator.generate_defect_data(100)
-    #print(defect, type(defect))
+    simulator.set_up_box('cube', 100)
+    defect = simulator.generate_defect_data(1000)
+    print(defect, type(defect))
+    print(sys.path, os.getcwd())'''
 
