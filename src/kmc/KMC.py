@@ -4,12 +4,11 @@ import sys
 import time
 import numba
 
-print(os.getcwd())
+#print(os.getcwd())
 sys.path.append(os.getcwd()+'\\src')
-print(sys.path)
-import test
-print(sys.path)
-import test.func
+print(os.path.dirname(__file__))
+import oldkmc.defect
+#print(sys.path)
 
 
 class KMC:
