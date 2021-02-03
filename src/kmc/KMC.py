@@ -14,11 +14,15 @@ class KMC:
     
     BOX_SHAPE = ''
     CHARACTERISTIC_LENGTH = 0
+    SIMULATION_TIME = 0
+    TEMPERATURE = 0
 
     def set_up_box(self, shape:str, L:float):
-        ''''''
         self.BOX_SHAPE = shape
         self.CHARACTERISTIC_LENGTH = L
+    
+    def set_simulation_time(self, time:float):
+        self.SIMULATION_TIME = time
         
     def get_bound(self):        
         if self.BOX_SHAPE == 'cube':
@@ -55,7 +59,11 @@ class KMC:
         return self.read_defect_data(indexedfilename)
 
     def simulation(self):
-        #
+        t = 0
+        while t <= self.TEMPERATURE:
+            s = np.random.random_sample()
+            r = np.random.random_sample()
+
         pass
 
 if __name__ == '__main__':
