@@ -4,11 +4,7 @@ import sys
 import time
 import numba
 
-#print(os.getcwd())
-sys.path.append(os.getcwd()+'\\src')
-print(os.path.dirname(__file__))
-import oldkmc.defect
-#print(sys.path)
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 
 class KMC:
@@ -62,10 +58,5 @@ class KMC:
         #
         pass
 
-'''if __name__ == '__main__':
-    simulator = KMC()
-    simulator.set_up_box('cube', 100)
-    defect = simulator.generate_defect_data(1000)
-    print(defect, type(defect))
-    print(sys.path, os.getcwd())'''
+if __name__ == '__main__':
 
