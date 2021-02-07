@@ -1,20 +1,32 @@
-import numpy as np
+import os
 
+import numpy as np
 
 
 class Defect:
     def read_defect_data(self, filename):
-        raw_defect_data = np.loadtxt('data/' + filename, dtype = [('ID', 'i4'), ('type', np.str, 10), ('x', 'f4'), ('y', 'f4'), ('z', 'f4')], skiprows = 1)
+        raw_defect_data = np.loadtxt('data/' + filename, 
+                                     dtype = [('ID', 'i4'), 
+                                              ('type', np.str, 10), 
+                                              ('x', 'f4'), 
+                                              ('y', 'f4'), 
+                                              ('z', 'f4')], 
+                                     skiprows = 1)
         defect_data = self.encode_defect(raw_defect_data)
-        self.DEFECT = defect_data
         return defect_data
 
-    def generate_defect_data(self, N, bound, defectype = ['I', 'V']):
-        filename = 'generate N = ' + str(N) + ' box = ' + self.BOX_SHAPE + ' L = ' + str(self.CHARACTERISTIC_LENGTH)
+    def generate_defect_data(self, 
+                             N, 
+                             bound, 
+                             BOX_SHAPE, 
+                             CHARACTERISTIC_LENGTH, 
+                             defectype = ['I', 'V']
+                             ):
+        filename = 'generate N = ' + str(N) + ' box = ' + BOX_SHAPE + ' L = ' + str(CHARACTERISTIC_LENGTH)
         datafiles = os.listdir('./data')
         index = 0
         indexedfilename = filename + '.txt'
-        while (indexedfilename in datafiles):
+        while indexedfilename in datafiles:
             index += 1
             indexedfilename = filename + ' (' + str(index) + ').txt'
         with open('data/' + indexedfilename, 'a') as f:
@@ -24,7 +36,12 @@ class Defect:
                 x = np.random.random_sample()
                 y = np.random.random_sample()
                 z = np.random.random_sample()
-                print('%d %s %f %f %f'%(i+1, defectype[flag], x*bound[1], y*bound[3], z*bound[5]), file = f)
+                print('%d %s %f %f %f'%(i+1, 
+                                        defectype[flag], 
+                                        x*bound[1], 
+                                        y*bound[3], 
+                                        z*bound[5]
+                                        ), file = f)
         return self.read_defect_data(indexedfilename)
 
     def encode_defect(self, raw_defect_data):
@@ -34,7 +51,6 @@ class Defect:
             if i[1] not in initial_defect_type.keys():
                 initial_defect_type[i[1]] = defect_type_serial
                 defect_type_serial += 1
-        self.INITIAL_DEFECT_TYPE = initial_defect_type
         defect_data = np.empty((raw_defect_data.shape[0], 5), dtype = np.float16)
         for i in range(len(defect_data)):
             for j in range(len(defect_data[i])):
@@ -47,4 +63,3 @@ class Defect:
 
 if __name__ == '__main__':
     d = Defect()
-    data = d.generate_defect_data(100)
