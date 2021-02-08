@@ -2,7 +2,7 @@
     "python.pythonPath": "X:\\Programs\\Anaconda\\python.exe",
     "python.linting.banditEnabled": false,
     "python.linting.enabled": true,
-    "python.linting.flake8Enabled": false,
+    "python.linting.flake8Enabled": true,
     "python.linting.mypyEnabled": false,
-    "python.linting.pylintEnabled": true
+    "python.linting.pylintEnabled": false
 }
