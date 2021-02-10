@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 
-class Defect:
+class DefectManager:
     def __init__(self, INITIAL_DEFECT_TYPE={}):
         self.INITIAL_DEFECT_TYPE = INITIAL_DEFECT_TYPE
 
@@ -71,11 +71,13 @@ class Defect:
                           BOX_SHAPE='cube',
                           INITIAL_DEFECT_TYPE=['I', 'V']):
         if defect == 'generate':
-            return self.generate_defect_data(N, CHARACTERISTIC_LENGTH, BOX_SHAPE, INITIAL_DEFECT_TYPE)
+            self.DEFECT = self.generate_defect_data(N, CHARACTERISTIC_LENGTH, BOX_SHAPE, INITIAL_DEFECT_TYPE)
+            return self.DEFECT
         if defect == 'read':
-            return self.read_defect_data(filename)
+            self.DEFECT = self.read_defect_data(filename)
+            return self.DEFECT
 
 
 if __name__ == '__main__':
-    d = Defect()
+    d = DefectManager()
     data = d.generate_defect_data(100, 10)

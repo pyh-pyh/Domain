@@ -3,7 +3,8 @@ import sys
 
 import numpy as np
 
-from defect import Defect
+from defect import DefectManager
+from rate import RateManager
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
@@ -30,8 +31,11 @@ class KMC:
             pass
 
     def simulation(self):
-        defect_manager = Defect()
+        defect_manager = DefectManager()
         self.DEFECT = defect_manager.initialize_defect()
+        self.INITIAL_DEFECT_TYPE = defect_manager.INITIAL_DEFECT_TYPE
+
+        rate_manager = RateManager(defect_manager)
         t = 0
         while t <= self.SIMULATION_TIME:
             s = np.random.random_sample()
