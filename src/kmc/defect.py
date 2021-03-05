@@ -9,7 +9,8 @@ class DefectManager:
 
     def read_defect_data(self, filename):
         raw_defect_data = np.loadtxt('data/' + filename,
-                                     dtype=[('ID', 'i4'), ('type', np.str, 10), ('x', 'f4'), ('y', 'f4'), ('z', 'f4')],
+                                     dtype=[('ID', 'i4'), ('type', np.str, 10), ('x', 'f4'),
+                                            ('y', 'f4'), ('z', 'f4')],
                                      skiprows=1)
         defect_data = self.encode_defect(raw_defect_data)
         return defect_data
@@ -23,7 +24,8 @@ class DefectManager:
 
     def generate_defect_data(self, N, CHARACTERISTIC_LENGTH, BOX_SHAPE, INITIAL_DEFECT_TYPE):
 
-        filename = 'generate N = ' + str(N) + ' box = ' + BOX_SHAPE + ' L = ' + str(CHARACTERISTIC_LENGTH)
+        filename = 'generate N = ' + str(N) + ' box = ' + BOX_SHAPE + ' L = ' + str(
+            CHARACTERISTIC_LENGTH)
         datafiles = os.listdir('./data')
         index = 0
         indexed_filename = filename + '.txt'
@@ -40,7 +42,9 @@ class DefectManager:
                 x = np.random.random_sample()
                 y = np.random.random_sample()
                 z = np.random.random_sample()
-                print('%d %s %f %f %f' % (i + 1, INITIAL_DEFECT_TYPE[flag], x * bound[1], y * bound[3], z * bound[5]), file=f)
+                print('%d %s %f %f %f' %
+                      (i + 1, INITIAL_DEFECT_TYPE[flag], x * bound[1], y * bound[3], z * bound[5]),
+                      file=f)
         return self.read_defect_data(indexed_filename)
 
     def encode_defect(self, raw_defect_data):
@@ -71,7 +75,8 @@ class DefectManager:
                           BOX_SHAPE='cube',
                           INITIAL_DEFECT_TYPE=['I', 'V']):
         if defect == 'generate':
-            self.DEFECT = self.generate_defect_data(N, CHARACTERISTIC_LENGTH, BOX_SHAPE, INITIAL_DEFECT_TYPE)
+            self.DEFECT = self.generate_defect_data(N, CHARACTERISTIC_LENGTH, BOX_SHAPE,
+                                                    INITIAL_DEFECT_TYPE)
             return self.DEFECT
         if defect == 'read':
             self.DEFECT = self.read_defect_data(filename)
