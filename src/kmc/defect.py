@@ -80,4 +80,4 @@ class DefectManager:
 
 if __name__ == '__main__':
     d = DefectManager()
-    data = d.generate_defect_data(100, 10)
+    data = d.generate_defect_data(100, 100)
