@@ -5,9 +5,11 @@ import numpy as np
 
 class DefectManager:
     def __init__(self, INITIAL_DEFECT_TYPE={}):
+
         self.INITIAL_DEFECT_TYPE = INITIAL_DEFECT_TYPE
 
     def read_defect_data(self, filename):
+
         raw_defect_data = np.loadtxt('data/' + filename,
                                      dtype=[('ID', 'i4'), ('type', np.str, 10), ('x', 'f4'),
                                             ('y', 'f4'), ('z', 'f4')],
@@ -16,6 +18,7 @@ class DefectManager:
         return defect_data
 
     def get_bound(self, BOX_SHAPE, CHARACTERISTIC_LENGTH):
+
         if BOX_SHAPE == 'cube':
             return (0, CHARACTERISTIC_LENGTH, 0, CHARACTERISTIC_LENGTH, 0, CHARACTERISTIC_LENGTH)
         if BOX_SHAPE == 'other':
@@ -48,6 +51,7 @@ class DefectManager:
         return self.read_defect_data(indexed_filename)
 
     def encode_defect(self, raw_defect_data):
+
         initial_defect_type = {}
         defect_type_serial = 1
 
@@ -74,6 +78,7 @@ class DefectManager:
                           CHARACTERISTIC_LENGTH=100,
                           BOX_SHAPE='cube',
                           INITIAL_DEFECT_TYPE=['I', 'V']):
+
         if defect == 'generate':
             self.DEFECT = self.generate_defect_data(N, CHARACTERISTIC_LENGTH, BOX_SHAPE,
                                                     INITIAL_DEFECT_TYPE)
