@@ -30,6 +30,10 @@ class KMC:
 
         self.SIMULATION_TIME = SIMULATION_TIME
 
+    def set_temperature(self, TEMPERATURE: float):
+
+        self.TEMPERATURE = TEMPERATURE
+
     def get_bound(self):
 
         if self.BOX_SHAPE == 'cube':
@@ -45,8 +49,11 @@ class KMC:
         self.DEFECT = defect_manager.initialize_defect()
         self.INITIAL_DEFECT_TYPE = defect_manager.INITIAL_DEFECT_TYPE
 
-        rate_manager = RateManager(self.DEFECT, self.TEMPERATURE)
+        rate_manager = RateManager(self.DEFECT, self.INITIAL_DEFECT_TYPE, self.TEMPERATURE)
+        print(rate_manager.calculate_migration_rate())
+
         t = 0
+
         while t <= self.SIMULATION_TIME:
             s = np.random.random_sample()
             r = np.random.random_sample()
@@ -77,4 +84,5 @@ class KMC:
 if __name__ == '__main__':
     simulator = KMC()
     simulator.set_up_box('cube', 10)
+    simulator.set_temperature(300)
     simulator.simulation()

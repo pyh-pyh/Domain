@@ -2,7 +2,8 @@
     "I": {
         "migration": {
             "E": 0.5,
-            "L": 1
+            "L": 1,
+            "v0": 1
         },
         "recombination": [
             {
@@ -18,7 +19,8 @@
     "V": {
         "migration": {
             "E": 5,
-            "L": 1
+            "L": 1,
+            "v0": 1
         },
         "recombination": [
             {
