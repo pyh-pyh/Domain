@@ -1,0 +1,34 @@
+{
+    "I": {
+        "migration": {
+            "E": 0.5,
+            "L": 1
+        },
+        "recombination": [
+            {
+                "E": 0.5,
+                "object": "I"
+            },
+            {
+                "E": 2,
+                "object": "V"
+            }
+        ]
+    },
+    "V": {
+        "migration": {
+            "E": 5,
+            "L": 1
+        },
+        "recombination": [
+            {
+                "E": 0.2,
+                "object": "V"
+            },
+            {
+                "E": 2,
+                "object": "I"
+            }
+        ]
+    }
+}

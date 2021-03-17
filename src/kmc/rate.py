@@ -1,5 +1,6 @@
 import numba
 import numpy as np
+import json
 
 
 class RateManager:
@@ -9,6 +10,8 @@ class RateManager:
         self.DEFECT = DEFECT
 
     def rate_filter(self):
+        
+        
         
     
     def calculate_migration_rate(self):

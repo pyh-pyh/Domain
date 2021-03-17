@@ -15,19 +15,23 @@ class KMC:
                  CHARACTERISTIC_LENGTH=float(0),
                  SIMULATION_TIME=float(0),
                  TEMPERATURE=float(0)):
+
         self.BOX_SHAPE = BOX_SHAPE
         self.CHARACTERISTIC_LENGTH = CHARACTERISTIC_LENGTH
         self.SIMULATION_TIME = SIMULATION_TIME
         self.TEMPERATURE = TEMPERATURE
 
     def set_up_box(self, shape: str, L: float):
+
         self.BOX_SHAPE = shape
         self.CHARACTERISTIC_LENGTH = L
 
     def set_simulation_time(self, SIMULATION_TIME: float):
+
         self.SIMULATION_TIME = SIMULATION_TIME
 
     def get_bound(self):
+
         if self.BOX_SHAPE == 'cube':
             return (0, self.CHARACTERISTIC_LENGTH, 0, self.CHARACTERISTIC_LENGTH, 0,
                     self.CHARACTERISTIC_LENGTH)
@@ -36,6 +40,7 @@ class KMC:
             pass
 
     def simulation(self):
+
         defect_manager = DefectManager()
         self.DEFECT = defect_manager.initialize_defect()
         self.INITIAL_DEFECT_TYPE = defect_manager.INITIAL_DEFECT_TYPE
@@ -67,7 +72,6 @@ class KMC:
                     down = point
                     point = int((up + down) / 2)
                     continue
-
 
 
 if __name__ == '__main__':
