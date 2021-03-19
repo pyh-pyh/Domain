@@ -5,26 +5,20 @@ import numpy as np
 
 from defect import DefectManager
 from rate import RateManager
+from config import SimulationConfig
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 
 class KMC:
-    def __init__(self,
-                 BOX_SHAPE='',
-                 CHARACTERISTIC_LENGTH=float(0),
-                 SIMULATION_TIME=float(0),
-                 TEMPERATURE=float(0)):
+    def __init__(self, SIMULATION_TIME=float(0), TEMPERATURE=float(0)):
 
-        self.BOX_SHAPE = BOX_SHAPE
-        self.CHARACTERISTIC_LENGTH = CHARACTERISTIC_LENGTH
         self.SIMULATION_TIME = SIMULATION_TIME
         self.TEMPERATURE = TEMPERATURE
-
-    def set_up_box(self, shape: str, L: float):
-
-        self.BOX_SHAPE = shape
-        self.CHARACTERISTIC_LENGTH = L
+        self.BOX_SHAPE = SimulationConfig.read_simulation_box_config()['box_shape']
+        self.CHARACTERISTIC_LENGTH = SimulationConfig.read_simulation_box_config(
+        )['characteristic_length']
+        self.DEFECT = None
 
     def set_simulation_time(self, SIMULATION_TIME: float):
 
@@ -40,7 +34,7 @@ class KMC:
             return (0, self.CHARACTERISTIC_LENGTH, 0, self.CHARACTERISTIC_LENGTH, 0,
                     self.CHARACTERISTIC_LENGTH)
         if self.BOX_SHAPE == 'other':
-            # TODO
+            # TODO other shape of simulation box
             pass
 
     def simulation(self):
@@ -64,7 +58,7 @@ class KMC:
             while True:
                 if (sum(RN[:point]) <= r * sum(RN)) and (sum(RN[:(point + 1) %
                                                                 (len(RN) + 1)]) > r * sum(RN)):
-                    # TODO
+                    # TODO execute defect event
                     dt = -np.log(s) / sum(RN)
                     t += dt
                     break
@@ -81,7 +75,5 @@ class KMC:
 
 
 if __name__ == '__main__':
-    simulator = KMC()
-    simulator.set_up_box('cube', 10)
-    simulator.set_temperature(300)
+    simulator = KMC(SIMULATION_TIME=10, TEMPERATURE=300)
     simulator.simulation()

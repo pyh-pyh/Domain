@@ -110,25 +110,24 @@ class RateManager:
 
     def calculate_total_rate(self):
 
-        # TODO
+        # TODO total rate RN
         pass
 
 
 class NeighborSearcher:
     def __init__(self, DEFECT, RECOMBINATION_RATE):
-        
+
         self.DEFECT = DEFECT
         self.RECOMBINATION_RATE = RECOMBINATION_RATE
-        
+
     def search_for_potential_reactions(self):
-        
-        # TODO
+
+        # TODO need space mesh
         pass
-    
+
     def initial_space_mesh(self):
-        
-        
-        
+
+        pass
 
 
 if __name__ == '__main__':

@@ -9,18 +9,19 @@ class DefectManager:
     def __init__(self):
 
         self.DEFECT_TYPE_CONFIG = SimulationConfig.read_defect_type_config()
+        self.BOX_SHAPE = SimulationConfig.read_simulation_box_config()['box_shape']
+        self.CHARACTERISTIC_LENGTH = SimulationConfig.read_simulation_box_config(
+        )['characteristic_length']
         self.initialize_defect()
 
     def initialize_defect(self,
                           defect='generate',
                           filename=None,
                           N=1000,
-                          CHARACTERISTIC_LENGTH=100,
-                          BOX_SHAPE='cube',
                           INITIAL_DEFECT_TYPE=['I', 'V']):
 
         if defect == 'generate':
-            self.DEFECT = self.generate_defect_data(N, CHARACTERISTIC_LENGTH, BOX_SHAPE,
+            self.DEFECT = self.generate_defect_data(N, self.CHARACTERISTIC_LENGTH, self.BOX_SHAPE,
                                                     INITIAL_DEFECT_TYPE)
         if defect == 'read':
             self.DEFECT = self.read_defect_data(filename)
@@ -39,7 +40,7 @@ class DefectManager:
         if BOX_SHAPE == 'cube':
             return (0, CHARACTERISTIC_LENGTH, 0, CHARACTERISTIC_LENGTH, 0, CHARACTERISTIC_LENGTH)
         if BOX_SHAPE == 'other':
-            # TODO
+            # TODO other shape of simulation box
             pass
 
     def generate_defect_data(self, N, CHARACTERISTIC_LENGTH, BOX_SHAPE, INITIAL_DEFECT_TYPE):

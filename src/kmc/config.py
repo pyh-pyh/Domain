@@ -131,7 +131,7 @@ class SimulationConfig:
         return defect_type_config
 
     @staticmethod
-    def write_simulation_box_config(shape,
+    def write_simulation_box_config(box_shape,
                                     characteristic_length,
                                     path='./config',
                                     file_name='/simulation_config.json'):
@@ -145,7 +145,7 @@ class SimulationConfig:
                 if 'simulation_box' not in simulation_config.keys():
                     simulation_config['simulation_box'] = {}
                 simulation_box_config = simulation_config['simulation_box']
-                simulation_box_config['shape'] = shape
+                simulation_box_config['box_shape'] = box_shape
                 simulation_box_config['characteristic_length'] = characteristic_length
                 f.seek(0)
                 f.truncate()
@@ -155,11 +155,19 @@ class SimulationConfig:
             with open(path + file_name, 'w+') as f:
                 simulation_config = {
                     'simulation_box': {
-                        'shape': shape,
+                        'box_shape': box_shape,
                         'characteristic_length': characteristic_length
                     }
                 }
                 json.dump(simulation_config, f, sort_keys=True, indent=4, separators=(',', ': '))
+
+    @staticmethod
+    def read_simulation_box_config(path='./config', file_name='/simulation_config.json'):
+
+        with open(path + file_name, 'r+') as f:
+            simulation_config = json.load(f)
+            simulation_box_config = simulation_config['simulation_box']
+        return simulation_box_config
 
 
 if __name__ == '__main__':
