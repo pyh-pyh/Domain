@@ -1,18 +1,31 @@
 {
     "I": {
         "migration": {
-            "E": 0.5,
+            "E": 5,
             "L": 1,
             "v0": 1
         },
         "recombination": [
             {
-                "E": 0.5,
-                "object": "I"
+                "E": 1,
+                "L": 1,
+                "creation": "None",
+                "object": "V",
+                "v0": 1
             },
             {
-                "E": 2,
-                "object": "V"
+                "E": 1.5,
+                "L": 1,
+                "creation": "I2",
+                "object": "I",
+                "v0": 1
+            },
+            {
+                "E": 1.6,
+                "L": 1,
+                "creation": "I3",
+                "object": "I2",
+                "v0": 1
             }
         ]
     },
@@ -24,12 +37,25 @@
         },
         "recombination": [
             {
-                "E": 0.2,
-                "object": "V"
+                "E": 1.5,
+                "L": 1,
+                "creation": "V2",
+                "object": "V",
+                "v0": 1
             },
             {
-                "E": 2,
-                "object": "I"
+                "E": 1.6,
+                "L": 1,
+                "creation": "V3",
+                "object": "V2",
+                "v0": 1
+            },
+            {
+                "E": 1,
+                "L": 1,
+                "creation": "None",
+                "object": "I",
+                "v0": 1
             }
         ]
     }

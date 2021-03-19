@@ -46,10 +46,9 @@ class KMC:
     def simulation(self):
 
         defect_manager = DefectManager()
-        self.DEFECT = defect_manager.initialize_defect()
-        self.INITIAL_DEFECT_TYPE = defect_manager.INITIAL_DEFECT_TYPE
+        self.DEFECT = defect_manager.DEFECT
 
-        rate_manager = RateManager(self.DEFECT, self.INITIAL_DEFECT_TYPE, self.TEMPERATURE)
+        rate_manager = RateManager(self.DEFECT, self.TEMPERATURE)
         print(rate_manager.calculate_migration_rate())
 
         t = 0

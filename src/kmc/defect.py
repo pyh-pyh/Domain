@@ -2,11 +2,28 @@ import os
 
 import numpy as np
 
+from config import SimulationConfig
+
 
 class DefectManager:
-    def __init__(self, INITIAL_DEFECT_TYPE={}):
+    def __init__(self):
 
-        self.INITIAL_DEFECT_TYPE = INITIAL_DEFECT_TYPE
+        self.DEFECT_TYPE_CONFIG = SimulationConfig.read_defect_type_config()
+        self.initialize_defect()
+
+    def initialize_defect(self,
+                          defect='generate',
+                          filename=None,
+                          N=1000,
+                          CHARACTERISTIC_LENGTH=100,
+                          BOX_SHAPE='cube',
+                          INITIAL_DEFECT_TYPE=['I', 'V']):
+
+        if defect == 'generate':
+            self.DEFECT = self.generate_defect_data(N, CHARACTERISTIC_LENGTH, BOX_SHAPE,
+                                                    INITIAL_DEFECT_TYPE)
+        if defect == 'read':
+            self.DEFECT = self.read_defect_data(filename)
 
     def read_defect_data(self, filename):
 
@@ -52,37 +69,17 @@ class DefectManager:
 
     def encode_defect(self, raw_defect_data):
 
-        initial_defect_type = {}
-        defect_type_serial = 1
-
-        for i in raw_defect_data:
-            if i[1] not in initial_defect_type.keys():
-                initial_defect_type[i[1]] = defect_type_serial
-                defect_type_serial += 1
-        self.INITIAL_DEFECT_TYPE = initial_defect_type
-
         defect_data = np.empty((raw_defect_data.shape[0], 5), dtype=np.float64)
         for i, single_defect in enumerate(raw_defect_data):
             for j, defect_attr in enumerate(single_defect):
                 if j == 1:
-                    defect_data[i][j] = initial_defect_type[defect_attr]
+                    defect_data[i][j] = self.DEFECT_TYPE_CONFIG[defect_attr]
                 else:
                     defect_data[i][j] = defect_attr
         print(defect_data, defect_data.shape)
         return defect_data
 
-    def initialize_defect(self,
-                          defect='generate',
-                          filename=None,
-                          N=1000,
-                          CHARACTERISTIC_LENGTH=100,
-                          BOX_SHAPE='cube',
-                          INITIAL_DEFECT_TYPE=['I', 'V']):
 
-        if defect == 'generate':
-            self.DEFECT = self.generate_defect_data(N, CHARACTERISTIC_LENGTH, BOX_SHAPE,
-                                                    INITIAL_DEFECT_TYPE)
-            return self.DEFECT
-        if defect == 'read':
-            self.DEFECT = self.read_defect_data(filename)
-            return self.DEFECT
+if __name__ == '__main__':
+    d = DefectManager()
+    print(d.DEFECT)

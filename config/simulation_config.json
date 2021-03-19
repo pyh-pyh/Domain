@@ -1,0 +1,12 @@
+{
+    "defect_type": {
+        "I": 1,
+        "I2": 3,
+        "V": 2,
+        "V2": 4
+    },
+    "simulation_box": {
+        "characteristic_length": 100,
+        "shape": "cube"
+    }
+}
