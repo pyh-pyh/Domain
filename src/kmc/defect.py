@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 
-from config import SimulationConfig
+from configs import SimulationConfig
 
 
 class DefectManager:
@@ -10,18 +10,18 @@ class DefectManager:
 
         self.DEFECT_TYPE_CONFIG = SimulationConfig.read_defect_type_config()
         self.BOX_SHAPE = SimulationConfig.read_simulation_box_config()['box_shape']
-        self.CHARACTERISTIC_LENGTH = SimulationConfig.read_simulation_box_config(
-        )['characteristic_length']
+        self.BOX_LENGTH = SimulationConfig.read_simulation_box_config(
+        )['box_length']
         self.initialize_defect()
 
     def initialize_defect(self,
                           defect='generate',
                           filename=None,
-                          N=1000,
+                          N=10000,
                           INITIAL_DEFECT_TYPE=['I', 'V']):
 
         if defect == 'generate':
-            self.DEFECT = self.generate_defect_data(N, self.CHARACTERISTIC_LENGTH, self.BOX_SHAPE,
+            self.DEFECT = self.generate_defect_data(N, self.BOX_LENGTH, self.BOX_SHAPE,
                                                     INITIAL_DEFECT_TYPE)
         if defect == 'read':
             self.DEFECT = self.read_defect_data(filename)
@@ -35,22 +35,22 @@ class DefectManager:
         defect_data = self.encode_defect(raw_defect_data)
         return defect_data
 
-    def get_bound(self, BOX_SHAPE, CHARACTERISTIC_LENGTH):
+    def get_bound(self, BOX_SHAPE, BOX_LENGTH):
 
         if BOX_SHAPE == 'cube':
-            return (0, CHARACTERISTIC_LENGTH, 0, CHARACTERISTIC_LENGTH, 0, CHARACTERISTIC_LENGTH)
+            return (0, BOX_LENGTH, 0, BOX_LENGTH, 0, BOX_LENGTH)
         if BOX_SHAPE == 'other':
             # TODO other shape of simulation box
             pass
 
-    def generate_defect_data(self, N, CHARACTERISTIC_LENGTH, BOX_SHAPE, INITIAL_DEFECT_TYPE):
+    def generate_defect_data(self, N, BOX_LENGTH, BOX_SHAPE, INITIAL_DEFECT_TYPE):
 
         filename = 'generate N = ' + str(N) + ' box = ' + BOX_SHAPE + ' L = ' + str(
-            CHARACTERISTIC_LENGTH)
+            BOX_LENGTH)
         datafiles = os.listdir('./data')
         index = 0
         indexed_filename = filename + '.txt'
-        bound = self.get_bound(BOX_SHAPE, CHARACTERISTIC_LENGTH)
+        bound = self.get_bound(BOX_SHAPE, BOX_LENGTH)
 
         while indexed_filename in datafiles:
             index += 1
@@ -77,7 +77,6 @@ class DefectManager:
                     defect_data[i][j] = self.DEFECT_TYPE_CONFIG[defect_attr]
                 else:
                     defect_data[i][j] = defect_attr
-        print(defect_data, defect_data.shape)
         return defect_data
 
 

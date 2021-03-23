@@ -132,7 +132,7 @@ class SimulationConfig:
 
     @staticmethod
     def write_simulation_box_config(box_shape,
-                                    characteristic_length,
+                                    box_length,
                                     path='./config',
                                     file_name='/simulation_config.json'):
 
@@ -146,7 +146,7 @@ class SimulationConfig:
                     simulation_config['simulation_box'] = {}
                 simulation_box_config = simulation_config['simulation_box']
                 simulation_box_config['box_shape'] = box_shape
-                simulation_box_config['characteristic_length'] = characteristic_length
+                simulation_box_config['box_length'] = box_length
                 f.seek(0)
                 f.truncate()
                 json.dump(simulation_config, f, sort_keys=True, indent=4, separators=(',', ': '))
@@ -156,7 +156,7 @@ class SimulationConfig:
                 simulation_config = {
                     'simulation_box': {
                         'box_shape': box_shape,
-                        'characteristic_length': characteristic_length
+                        'box_length': box_length
                     }
                 }
                 json.dump(simulation_config, f, sort_keys=True, indent=4, separators=(',', ': '))
@@ -172,4 +172,4 @@ class SimulationConfig:
 
 if __name__ == '__main__':
     SimulationConfig.write_defect_type_config(I2=3, V2=4)
-    SimulationConfig.write_simulation_box_config('cube', 100)
+    SimulationConfig.write_simulation_box_config('cube', 50)
